@@ -29,10 +29,10 @@ import lombok.ToString;
 @ToString
 public class BloodDonor {
 	
-	@TableGenerator(name = "BloodDonor_gen", initialValue = 327000)
+	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "BloodDonor_gen")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int donorId;
 	private String donorName;
 	
@@ -47,11 +47,11 @@ public class BloodDonor {
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate lastDonated;
-	private String campName;
+	private String donationCampName;
 	
 	// Many-to-one relationship with DonationCamp for Join operations
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="donor_fk", referencedColumnName = "campName")
+	@JoinColumn(name="donor_fk", referencedColumnName = "donationCampName")
 	private DonationCamp donationCamp;
 	
 	
