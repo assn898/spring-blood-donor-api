@@ -1,11 +1,16 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.BloodDonor;
 import com.example.demo.entity.BloodDonorsList;
 import com.example.demo.repos.BloodDonorRepository;
 
+@Service
 public class BloodDonorService {
 
 	@Autowired
@@ -16,7 +21,8 @@ public class BloodDonorService {
 	}
 
 	public BloodDonorsList findAllDonors() {
-		BloodDonorsList donorsList = (BloodDonorsList) this.repo.findAll();
+		BloodDonorsList donorsList = new BloodDonorsList();
+		donorsList.setDonorsList(this.repo.findAll());
 		return donorsList;
 	}
 

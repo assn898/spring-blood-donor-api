@@ -51,7 +51,7 @@ public class BloodDonor {
 	
 	// Many-to-one relationship with DonationCamp for Join operations
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="donor_fk", referencedColumnName = "donationCampName")
+	@JoinColumn(name = "donor_fk",referencedColumnName = "donationCampName")
 	private DonationCamp donationCamp;
 	
 	
