@@ -36,13 +36,14 @@ public class BloodDonor {
 	private String donorGender;
 	private String bloodGroup;
 	private String location;
-	private long phoneNumber;
+	private String phoneNumber;
 	private String emailAddr;
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate lastDonated;
 	private String campName;
 	
+	// Many-to-one relationship with DonationCamp for Join operations
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="donor_fk", referencedColumnName = "campName")
 	private DonationCamp donationCamp;
