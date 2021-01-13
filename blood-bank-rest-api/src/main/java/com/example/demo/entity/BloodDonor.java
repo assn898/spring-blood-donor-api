@@ -2,8 +2,11 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,7 +41,11 @@ public class BloodDonor {
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate lastDonated;
-	private String donationCamp;
+	private String campName;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="donor_fk", referencedColumnName = "campName")
+	private DonationCamp donationCamp;
 	
 	
 }
