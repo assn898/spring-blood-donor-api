@@ -3,6 +3,8 @@ package com.example.demo.controllers;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,5 +63,10 @@ public class BloodDonorController {
 		}
 		
 		return this.service.saveDonor(existingDonor);
+	}
+	
+	@PostMapping(path = "/")
+	public BloodDonorsList findSpecificDonors(@RequestParam(name = "date") @DateTimeFormat(iso = ISO.DATE) LocalDate requiredDate, @RequestParam(name = "bg") String bloodGroup, @RequestParam(name = "loc") String location) {
+		return this.service.findSpecificDonors(requiredDate, bloodGroup, location);
 	}
 }

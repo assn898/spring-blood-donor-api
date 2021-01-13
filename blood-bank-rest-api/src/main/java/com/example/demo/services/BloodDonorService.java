@@ -1,7 +1,9 @@
 package com.example.demo.services;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
+
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,14 @@ public class BloodDonorService {
 	public void deleteDonor(int id) {
 		this.repo.deleteById(id);
 	}
-
-
+	
+	public BloodDonorsList findSpecificDonors(LocalDate requiredDate, String bloodGroup, String location) {
+		BloodDonorsList donorsList = new BloodDonorsList();
+		
+		donorsList.setDonorsList(this.repo.findSpecificDonors(requiredDate, "%"+bloodGroup+"%","%"+location+"%"));
+		return donorsList;
+	}
+	
+	
+	
 }
