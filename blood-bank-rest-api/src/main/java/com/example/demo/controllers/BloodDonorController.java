@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,21 +26,21 @@ public class BloodDonorController {
 
 	@Autowired
 	private BloodDonorService service;
-	
+
 	@GetMapping(path = "/")
 	public BloodDonorsList findAllDonors() {
 		return this.service.findAllDonors();
 	}
-	
+
 	@PostMapping(path = "/newDonor")
 	public BloodDonor addNewDonor(@RequestBody BloodDonor bloodDonor) {
 		return this.service.saveDonor(bloodDonor);
 	}
-	
+
 	@PutMapping(path = "/updateDonor")
 	public BloodDonor updateDonor(@RequestParam(name = "donorId") int id, @RequestBody BloodDonor bloodDonor) {
 		BloodDonor existingDonor = this.service.findDonorById(id);
-		
+
 		String donorName = bloodDonor.getDonorName();
 		LocalDate dateOfBirth = bloodDonor.getDateOfBirth();
 		int donorAge = bloodDonor.getDonorAge();
@@ -49,7 +50,7 @@ public class BloodDonorController {
 		String phoneNumber = bloodDonor.getPhoneNumber();
 		String emailAddr = bloodDonor.getEmailAddr();
 		LocalDate lastDonated = bloodDonor.getLastDonated();
-		
+
 		if(existingDonor != null) {
 			existingDonor.setDonorName(donorName);
 			existingDonor.setDateOfBirth(dateOfBirth);
@@ -61,12 +62,17 @@ public class BloodDonorController {
 			existingDonor.setEmailAddr(emailAddr);
 			existingDonor.setLastDonated(lastDonated);
 		}
-		
+
 		return this.service.saveDonor(existingDonor);
 	}
-	
+
 	@PostMapping(path = "/")
 	public BloodDonorsList findSpecificDonors(@RequestParam(name = "date") @DateTimeFormat(iso = ISO.DATE) LocalDate requiredDate, @RequestParam(name = "bg") String bloodGroup, @RequestParam(name = "loc") String location) {
 		return this.service.findSpecificDonors(requiredDate, bloodGroup, location);
+	}
+
+	@DeleteMapping(path = "/delete")
+	public void deleteCustomerForm(@RequestParam(name = "id") int id) {
+		service.deleteDonor(id);
 	}
 }
