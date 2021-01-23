@@ -4,8 +4,11 @@ package com.example.demo.services;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.BloodDonor;
@@ -25,7 +28,7 @@ public class BloodDonorService {
 	public BloodDonorsList findAllDonors() {
 		BloodDonorsList donorsList = new BloodDonorsList();
 		donorsList.setDonorsList(this.repo.findAll());
-		return donorsList;
+		return donorsList;		
 	}
 
 	public BloodDonor findDonorById(int id) {
@@ -36,14 +39,28 @@ public class BloodDonorService {
 	public void deleteDonor(int id) {
 		this.repo.deleteById(id);
 	}
-	
-	public BloodDonorsList findSpecificDonors(LocalDate requiredDate, String bloodGroup, String location) {
-		BloodDonorsList donorsList = new BloodDonorsList();
+
+	public List<BloodDonor> findSpecificDonors(LocalDate requiredDate, String bloodGroup, String location) {
 		
-		donorsList.setDonorsList(this.repo.findSpecificDonors(requiredDate, "%"+bloodGroup+"%","%"+location+"%"));
+		List<BloodDonor> donorsList = new ArrayList<>();
+		donorsList = this.repo.findSpecificDonors(requiredDate, "%"+bloodGroup+"%","%"+location+"%");
+		
 		return donorsList;
+		
 	}
-	
-	
-	
+
+	public BloodDonorsList findDonorsUnderCamp(int campId) {
+		
+		BloodDonorsList donorsList = new BloodDonorsList();
+		donorsList.setDonorsList(this.repo.findDonorsUnderCamp(campId));
+		return donorsList;		
+	}
+
+	public List<String> findAllDonorLocations() {
+		List<String> locations = this.repo.findAllDonorLocations();
+		return locations;
+	}
+
+
+
 }

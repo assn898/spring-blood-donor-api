@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,6 +54,8 @@ public class BloodDonor {
 	// Many-to-one relationship with DonationCamp for Join operations
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "donor_fk",referencedColumnName = "donationCampName")
+	@JsonIgnore
+	
 	private DonationCamp donationCamp;
 	
 	

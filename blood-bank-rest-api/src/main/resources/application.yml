@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/exercise
     username: root
-    password: s*re%1Sm
+    password: password
   application: 
     name: blood-donor-service  
   jpa:
@@ -13,5 +13,9 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl 
 
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}  
+    
 server:
   port: 7770
